@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword,createUserWithEmailAndPassword} from "firebase/auth";
-import app from './firebaseConfig';
 import {auth} from './firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 const SignInComponent = () => {
@@ -10,9 +9,6 @@ const SignInComponent = () => {
   const navigate=useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Here, you can perform the sign-in logic using the 'email' and 'password' values
-    // For demonstration purposes, we will just print the input values
     console.log('Email:', email);
     console.log('Password:', password);
 
@@ -24,26 +20,21 @@ const SignInComponent = () => {
      e.preventDefault();
      signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
+    // Signed in
     localStorage.setItem('userName',email.substring(0,email.indexOf('@')));
     navigate("/");
-    console.log(user);
+    // console.log(user);
   })
   .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
     alert(error);
   });
   }
   function handelSignup(e){
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    const user = userCredential.user;
+  .then(() => {
   })
   .catch((error) => {
-    const errorCode = error.code;
     const errorMessage = error.message;
     alert(email+" "+password+" "+errorMessage);
   });
