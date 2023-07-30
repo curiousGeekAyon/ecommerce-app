@@ -32,6 +32,7 @@ function App() {
     onSPageChange,
     onProceed,
     onRefresh,
+    onSearchAddCart,
     page,sPage,
     handelBkrd,
     handelFwrd,
@@ -62,6 +63,23 @@ function onAddCart(id)
         setCart(arrCart);
        }
   }
+function onSearchAddCart(id)
+       {
+        const element=currSdata.filter((item,i)=>{
+          console.log(item.title+" "+id);
+           if(id === i)
+              {
+                setCost(cost+item.price);
+                return true;
+              }
+         })
+         const arrCart=[...cart,element[0]]; 
+         console.log(arrCart);
+         if(element.length>0)
+           {
+            setCart(arrCart);
+           }
+       }
 function onRemoveCart(id) {
   // console.log("removal called");
     const arrCart=[...cart];

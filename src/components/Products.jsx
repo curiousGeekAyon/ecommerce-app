@@ -27,6 +27,7 @@ function Products() {
                     price={price}
                     key={i}
                     id={i}
+                    flag={false}
                   />
                 );
               })}

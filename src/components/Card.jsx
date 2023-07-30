@@ -1,12 +1,18 @@
 import React from "react";
 import { Items } from "../App";
 import { useContext } from "react";
-function Card({title,image,price,id})
-    {   const{onAddCart}=useContext(Items);
+function Card({title,image,price,id,flag})
+    {   const{onAddCart,onSearchAddCart}=useContext(Items);
         function handelAdd(e)
             {
-                console.log(id);
-                   onAddCart(id);
+                if(flag)
+                   {
+                     onSearchAddCart(id);
+                   }
+                else{
+                    console.log(id);
+                    onAddCart(id);
+                }
             }
          return (
                     <div className="cardWrapper">

@@ -18,6 +18,7 @@ function SearchResult(){
                     price={price}
                     key={i}
                     id={i}
+                    flag={true}
                   />
                 );
               })}
