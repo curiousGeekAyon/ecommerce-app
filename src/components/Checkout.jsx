@@ -31,8 +31,8 @@ function Checkout(){
            { 
              cart.length>0?cart.map((item,i)=>{
                 console.log(item);
-                let{brand,images,price,title}=item;
-               return <Checkoutcard brand={brand} image={images[0]} price={price} key={i} id={i} />
+                let{images,price,title}=item;
+               return <Checkoutcard title={title} image={images[0]} price={price} key={i} id={i} />
             }):null
            }
          </div>
