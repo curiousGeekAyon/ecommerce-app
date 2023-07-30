@@ -2,14 +2,20 @@ import React from "react";
 import Checkoutcard from "./Checkoutcard";
 import { useContext } from "react";
 import { Items } from "../App";
+let user=localStorage.getItem("userName");
 function Checkout(){
     const{cart,cost,onProceed}=useContext(Items);
     function handelProceed()
         {
-          if(cost>0)
+          if(cost>0&&user)
              {
-                alert(`Thank you for shopping \n your grandtotal is ${cost}`);
-             }  onProceed();
+                alert(`Thank you for shopping \n your grandtotal is ${cost}$`);
+                onProceed();
+             } 
+          else{
+              alert("Please Sign in to proceed");
+          } 
+          
         }
     return (
     <div className="mainWrapper">

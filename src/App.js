@@ -116,9 +116,9 @@ function onSPageChange(id)
     console.log("calling"+ id);
 }
 function onProceed()
-     {
-         setCart([]);
-         setCost(0);
+     { 
+           setCart([]);
+            setCost(0);
      }
 function handelFwrd()
       {

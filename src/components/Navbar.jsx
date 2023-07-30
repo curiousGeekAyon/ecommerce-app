@@ -28,6 +28,7 @@ const[searchValue,setSearchValue]=useState("");
       console.log("clicking");
       signOut(auth).then(() => {
         localStorage.removeItem("userName");
+        alert("Successfully signed out");
         navigate("/");
       }).catch((error) => {
             alert(error);
@@ -74,7 +75,7 @@ const[searchValue,setSearchValue]=useState("");
            <span className="right">
            <span className="signInWrapper">
               <p>{user?`${user}`:`Hello Guest`}</p>
-              {user?<span onClick={handelSignOut}>SignOut</span>:<NavLink to='/signin'className="signInbtn"><span>Sign in</span></NavLink>}
+              {user?<span onClick={handelSignOut} style={{cursor:"pointer"}}>SignOut</span>:<NavLink to='/signin'className="signInbtn"><span>Sign in</span></NavLink>}
            </span>
            <NavLink to="checkout" className="nav-link2" >
            <ShoppingCartCheckoutIcon fontSize="medium"/>

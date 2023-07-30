@@ -33,7 +33,7 @@ const SignInComponent = () => {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
   .then((user) => {
-    alert("Signed up succsfully ... \n Now click sign in to login");
+    alert("Signed up succsfully ... \nNow click sign in to login");
   })
   .catch((error) => {
     const errorMessage = error.message;
