@@ -32,7 +32,8 @@ const SignInComponent = () => {
   function handelSignup(e){
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
-  .then(() => {
+  .then((user) => {
+    alert("Signed up succsfully ... \n Now click sign in to login");
   })
   .catch((error) => {
     const errorMessage = error.message;
