@@ -1,13 +1,567 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*{
+   margin:0;
+   border:0;
+   box-sizing: border-box;
+}
+/* ####################################utility classes#################################################### */
+.mainWrapper{
+   max-width: 95%;
+   margin:0px auto;
+}
+.btn{
+  background-color: rgb(255, 216, 20);
+  background-origin: padding-box;
+  background-size: auto;
+  border-bottom-color: rgb(252, 210, 0);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-bottom-style: solid;
+  border-bottom-width: 0.8px;
+  border-left-color: rgb(252, 210, 0);
+  border-left-style: solid;
+  border-left-width: 0.8px;
+  border-right-color: rgb(252, 210, 0);
+  border-right-style: solid;
+  border-right-width: 0.8px;
+  border-top-color: rgb(252, 210, 0);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-top-style: solid;
+  border-top-width: 0.8px;
+  box-shadow: rgba(213, 217, 217, 0.5) 0px 2px 5px 0px;
+  box-sizing: border-box;
+  color: rgb(15, 17, 17);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  height: 28.6px;
+  line-height: 20px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  text-align: center;
+  text-decoration-color: rgb(15, 17, 17);
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  text-decoration-thickness: auto;
+  width: 70%;
+  margin:0px;
+}
+.primaryBtn{ 
+  font-size: 14px;
+  max-width: 140px;
+  min-width:120px;
+  margin:0px;
+}
+.secondaryBtn{ 
+  font-size: 12px;
+  width: 157px;
+  background-color: #ffa41c;
+}
+.submit{
+  margin:0px auto;
+  display:block;
+  margin-bottom: 15px;
+}
+/*****************************************navbar styling*********************************/
+.navbarWrapper{
+     padding:5px 10px;
+     display: flex;
+     justify-content: space-between;
+     /* border:2px solid red; */
+     background-color: black;
+     color:#ffffff;
+     align-items: center;
+     width: 100%;
+}
+.input-container {
+  display: flex;
+  align-items: center;
+  /* border: 2px solid #ccc; */
+  width:82%;
+  border-radius: 5px;
+  min-width:30%; /* Set the minimum width of the input container */
+  padding: 2px;
+  margin-right:10px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+input[type="text"] {
+  /* Shrink, grow, and set a minimum width */
+  flex: 2 4 80px;
+  width:250px;
+  min-width: 80px; /* Set the minimum width of the input element */
+  border: none;
+  outline: none;
+  /* Add other styles as needed */
 }
+
+.nav-link{
+  color:rgb(244, 244, 244);
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 10px;
+  cursor: pointer;
+  display: flex;
+
+}
+.nav-link2{
+  color:rgb(244, 244, 244);
+  font-weight: bold;
+  text-decoration: none;
+  /* margin-right: 10px; */
+  cursor: pointer;
+  display: flex;
+  width:80px;
+  min-width:20px;
+  /* border:2px solid red; */
+  justify-content:space-between;
+}
+.signInbtn{
+  color:rgb(244, 244, 244);
+  font-weight: bold;
+  text-decoration: none;
+}
+.active {
+  color:rgb(245, 220, 38);
+}
+
+.signInWrapper{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  /* border: 1px solid red; */
+  align-items: center;
+  width:55px;
+  height:38px;
+  margin-right: 5px;
+}
+.signInWrapper p{
+    font-size: 11px;
+}
+.right{
+  display: flex;
+  /* border:2px solid green; */
+  justify-content:space-between;
+  align-items: center;
+  flex:1 1 100px;
+  max-width: 30%;
+  /* min-width:25%; */
+}
+.nav-link2>span{
+  display: block;
+}
+.nav-link2{
+  display: flex;
+  flex:1 2 30px;
+  max-width:80px;
+}
+.nav-link2 > #CWord{
+  display:block;
+ }
+ .StandbyWrapper{
+  display:none;
+ }
+ .Standby{
+ display: flex;
+ justify-content: center;
+ /* border: 2px solid #ccc; */
+ width:82%;
+ border-radius: 5px;
+ min-width:30%; /* Set the minimum width of the input container */
+ padding: 2px;
+ }
+.icon{
+  display:flex;
+  justify-content:flex-start;
+}
+
+/* *******************************************************signin wrapper*************************************** */
+.signinWrapperMain{
+  margin:10px auto;
+  border:1px solid black;
+  width:30%;
+  height:40vh;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+}
+
+#email,#password{
+  display:block;
+  margin-bottom:20px;
+  border:2px solid black;
+  width:100%;
+}
+.signinWrapperMain h2{
+  margin-bottom: 10px;
+}
+.margin{
+   background-color: #333;
+   height:2px;
+   width: 100%;
+}
+/* ************************************************card component styling******************************** */
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  flex:1 1 220px;
+  width: 15vw;
+  padding: 10px 15px;
+  /* border: 2px solid burlywood; */
+  height: 300px;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #fffdfd, #ffffff);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+  margin: 5px 5px 10px 10px;
+}
+/* Hover styles for the 3D effect and scaling */
+.cardWrapper:hover {
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-4px) scale(1.01);
+}
+
+
+  .img-container{
+    width:85%;
+    height:85%;
+    background-repeat: no-repeat;
+    background-size:contain;
+    /* border:2px solid green; */
+    object-fit:cover;
+    /* display: block; */
+    display: flex;
+    justify-content:center;
+    align-items: center;
+  }
+/* .img-container>img{
+ 
+} */
+.text-container{
+   margin:0px,auto;
+   font-size: 18px;
+   color: #333;
+}
+/* #################################################### products style ################################ */
+.productsWrapper{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  position:absolute;
+  top:50vh;
+  width: 100%;
+}
+.gradient-bg {
+  background-image: linear-gradient(to top, #d1d5db, #6b7280);
+}
+.products{
+  /* border:5px solid rgb(0, 128, 0); */
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* background-color: #ffffff00; */
+}
+.product{
+  /* border: 10px solid red; */
+  width:100%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.prImage{
+  width:100%;
+}
+.prImage>img{
+  width:100%;
+  height:100%;
+  border-radius: 5px;
+  object-fit:contain;
+}
+.noProducts {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  background-color: #e74c3c;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  perspective: 800px; /* Adjust the value to control the 3D effect */
+  transform-style: preserve-3d;
+  cursor: pointer; /* Optional: Add a pointer cursor to indicate interactivity */
+  transition: transform 0.3s; /* Optional: Add a smooth transition */
+}
+
+.noProducts {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  background-color: #e74c3c;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: perspective(500px) rotateX(15deg); /* Simple 3D effect */
+  cursor: pointer; /* Optional: Add a pointer cursor to indicate interactivity */
+  transition: transform 0.3s; /* Optional: Add a smooth transition */
+}
+
+.noProducts:hover {
+  transform: perspective(500px) rotateX(0);
+}
+
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Styling for the loading spinner */
+.loadingWrapper{
+    font-size: 24px;
+    font-weight: bold;
+    width: 100vw;
+    height: 100vh;
+    color: #ed9b4e;
+    animation: ellipsis 1s steps(5) infinite; /* Using the ellipsis animation with 1-second duration, 5 steps, and infinite repetition */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px solid green; */
+}
+.loading {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation:spin 2s linear infinite; /* Using the spin animation with 2 seconds duration, linear timing function, and infinite repetition */
+}
+  
+
+/* #########################################pages style################################ */
+.page-wrapper{
+  /* border:2px solid red; */
+  color:black;
+  width:80vw;
+  height:40px;
+  display:flex;
+  flex:1 1 120px;
+  justify-content: space-between;
+  margin:10px auto;
+  align-items: center;
+  /* position: absol */
+}
+.pages {
+  width: 45px;
+  height: 45px;
+  background-color: rgb(252, 210, 0);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+
+  /* Additional styles for attractive design */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.pages:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.pages:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+
+/* *********************************checkoutStyling***************************************************** */
+.bannerWrapper{
+  display:flex;
+  justify-content: space-between;
+}
+.bannerWrapper>.imgContainer{
+   height:80px;
+   /* border:2px solid red; */
+   width:78%;
+   background-color: blueviolet;
+}
+.bannerWrapper>.imgContainer>img{
+  height:100%;
+  object-fit: cover;
+  width:100%;
+  background-repeat: no-repeat;
+}
+.orderSummary{
+  background-color: #ffffffe6;
+  display: flex;
+  flex-direction: column;
+  width:20%;
+  justify-content: space-between;
+  /* border: 2px solid red; */
+  padding: 16px 10px;
+  align-items: flex-start;
+  height: 120px;
+  font-size: 15px;
+  margin-bottom: 40px;
+}
+.center{
+  text-align: center;
+  color:red;
+}
+.checkoutsList{
+   display:flex;
+   flex-direction: column;
+}
+.checkoutInfo h2{
+ margin-bottom: 20px;
+ /* border: 2px solid red; */
+}
+.CheckoutcardWrapper{
+  display:flex;
+  flex-direction: row;
+  max-width:100%;
+  padding: 10px 15px;
+  /* border-top:2px solid rgb(20, 15, 9); */
+  box-shadow: -2px 5px 25px -1px rgba(162,156,156,0.36);
+  -webkit-box-shadow: -2px 5px 25px -1px rgba(162,156,156,0.36);
+  -moz-box-shadow: -2px 5px 25px -1px rgba(162,156,156,0.36);
+  max-height:200px;
+  justify-content:flex-start;
+  background-color: #f6efefa5;
+  margin-bottom: 10px;
+  flex:1 1 300px;
+}
+.CheckoutcardWrapper>.text-container{
+    display:flex;
+    flex-direction: column;
+    align-items:start;
+    height:93%;
+    padding:10px 0px 0px 0px;
+    justify-content:space-between;
+    /* margin:5px solid rgb(13, 107, 165); */
+    flex:1 1 110px;
+    max-width:80%;
+}
+.CheckoutcardWrapper>.img-container{
+   flex:1 1 128px;
+   display: flex;
+   height:99%;
+   max-height:210px;
+   max-width:145px;
+   /* max-width:58%; */
+   justify-content:flex-start;
+   padding-right: 5px;
+   /* padding-bottom: 10px; */
+}
+.CheckoutcardWrapper>.img-container>img{
+  width:100%;
+  height:100%;
+  background-repeat: no-repeat;
+  object-fit:cover;
+  /* border:2px solid green; */
+  display: block;
+}
+/* ########################################### search page styling ########################################################### */
+.searchProductsWrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+}
+/* ####################################### media queries ############################################################## */
+@media (max-width: 1072px) {
+    .bannerWrapper{
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .bannerWrapper>.imgContainer{
+      height:80px;
+      /* border:2px solid red; */
+      width:100%;
+      height:30%;
+      background-color: blueviolet;
+   }
+   .orderSummary{
+    width:100%;
+    align-items: center;
+   }
+   .nav-link2{
+      justify-content: center;
+   }
+   .nav-link2 > #CWord{
+    display:none;
+   }
+   .signinWrapperMain{
+    width:350px;
+    padding-bottom:8px;
+   }
+   .signinWrapperMain h2{
+             font-size:16px;
+             
+   }
+}
+@media (max-width: 700px)
+       {
+         .productsWrapper{
+          position: static;
+         }
+         .signInWrapper span{
+            font-size:12px;
+         }
+        
+         .StandbyWrapper{
+          display:flex;
+          justify-content: center;
+         }
+         .input-container{
+          display:none;
+         }
+       }
+@media (max-width:580px)
+       {
+        .page-wrapper{
+          /* border:2px solid red; */
+          color:black;
+          width:90vw;
+          height:20px;
+        }
+        .pages{
+             width:25px;
+             height:25px;
+             font-size: 13px;
+        }
+       }
+@media (max-width:390px)
+       {
+           .signInWrapper p{
+              font-size:8px;
+             } 
+             .page-wrapper{
+              /* border:2px solid red; */
+              color:black;
+              width:90vw;
+              height:20px;
+            }
+            .pages{
+                 width:25px;
+                 height:25px;
+                 font-size: 13px;
+            }
+       }
