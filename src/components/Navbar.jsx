@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import {auth} from './firebaseConfig';
 import {signOut} from "firebase/auth";
 import { NavLink } from "react-router-dom";
-import { useContext,useEffect,useState } from "react";
+import { useContext,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Items } from "../App";
 import { Outlet } from "react-router-dom";
