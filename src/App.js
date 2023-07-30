@@ -37,7 +37,7 @@ function App() {
     handelFwrd,
     handelSBkrd,
     handelSFwrd,
-    onAddCart,cart,onRemoveCart,cost,onSearch,sTotal
+    onAddCart,cart,onRemoveCart,cost,onSearch
   };
 function onRefresh()
   {
