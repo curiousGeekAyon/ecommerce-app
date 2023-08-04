@@ -1,7 +1,7 @@
 import React from "react";
 import Checkoutcard from "./Checkoutcard";
 import { useContext } from "react";
-import { Items } from "../App";
+import { Items } from "./ItemsProvider";
 function Checkout(){
     const{cart,cost,onProceed}=useContext(Items);
     function handelProceed()

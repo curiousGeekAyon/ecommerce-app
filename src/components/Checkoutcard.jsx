@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { Items } from "../App";
+import { Items } from "./ItemsProvider";
 function CheckoutCard({title,image,price,id}){
     const {onRemoveCart}=useContext(Items);
     function handelRemove()

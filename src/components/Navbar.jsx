@@ -7,7 +7,7 @@ import {signOut} from "firebase/auth";
 import { NavLink } from "react-router-dom";
 import { useContext,useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Items } from "../App";
+import { Items } from "./ItemsProvider";
 import { Outlet } from "react-router-dom";
 function Navbar() {
    const{cart,onSearch,onRefresh}=useContext(Items);

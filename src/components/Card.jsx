@@ -1,5 +1,5 @@
 import React from "react";
-import { Items } from "../App";
+import { Items } from "./ItemsProvider";
 import { useContext } from "react";
 function Card({title,image,price,id,flag})
     {   const{onAddCart,onSearchAddCart}=useContext(Items);

@@ -1,6 +1,6 @@
 import React from "react";
 import SearchPages from "./SearchPages";
-import { Items } from "../App";
+import { Items } from "./ItemsProvider";
 import { useContext } from "react";
 import Card from "./Card";
 function SearchResult(){

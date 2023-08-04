@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext, } from "react";
-import { Items } from "../App";
+import { Items } from "./ItemsProvider";
 import ArrowBackIosNewSharpIcon from '@mui/icons-material/ArrowBackIosNewSharp';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 function Pages(){

@@ -1,11 +1,12 @@
 import React from "react";
 import Card from "./Card";
 import { useContext } from "react";
-import { Items } from "../App";
+import { Items } from "./ItemsProvider";
 import Pages from "./Pages";
 
 function Products() {
   const { data } = useContext(Items);
+  console.log(data+"data working");
   return (
     <>
       {data.length >0 ? (
