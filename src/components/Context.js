@@ -1,15 +1,11 @@
 import React from 'react';
-// import Navbar from './components/Navbar';
-// import Products from './components/Products';
-// import Checkout from './components/Checkout';
-// import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
-import { useState,useEffect,createContext } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import SignInComponent from './components/Signin';
-// import SearchResult from './components/SearchResult';
+
+import { useState,useEffect,createContext,useContext} from 'react';
+
 
 const Items=createContext();
-function ItemsProvider({child}) {
+
+function Context({children}) {
   const[data,setData] = useState([]);
   const[searchData,setSearchData] = useState([]);
   const[currSdata,setcurrSdata] = useState([]);
@@ -79,7 +75,7 @@ function onSearchAddCart(id)
            }
        }
 function onRemoveCart(id) {
-  // console.log("removal called");
+ 
     const arrCart=[...cart];
     setCost(cost-arrCart[id].price);
     arrCart.splice(id,1);
@@ -104,6 +100,8 @@ useEffect(()=>{
 },[page])
 
 useEffect(()=>{
+  if(searchVal!="")
+     {
   console.log("reloading");
   fetch(`https://dummyjson.com/products/search?q=${searchVal}`)
   .then((response)=>response.json())
@@ -114,6 +112,7 @@ useEffect(()=>{
     // setcurrSdata(searchData.slice(sPage*12,12));
      setSTotal(data.products.length);
   })
+}
 },[searchVal])
 
 useEffect(()=>{
@@ -166,12 +165,11 @@ function handelSBkrd(id)
       setSPage(sPage-1);
     }
 }
-  return (
-    <Items.Provider value={contextValue}>
-    {child}
-    </Items.Provider>
-  );
-  
-  
+return <Items.Provider value={contextValue}>{children}</Items.Provider>  
 }
-export {Items,ItemsProvider}  ;
+
+export const ItemState = () => {
+  return useContext(Items);
+};
+export default Context;
+

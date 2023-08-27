@@ -1,10 +1,10 @@
 import React from "react";
 import { useContext, } from "react";
-import { Items } from "./ItemsProvider";
+import { ItemState } from "./Context";
 import ArrowBackIosNewSharpIcon from '@mui/icons-material/ArrowBackIosNewSharp';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 function SearchPages(){
-const {sTotal,onSPageChange,sPage,handelSBkrd,handelSFwrd}=useContext(Items);
+const {sTotal,onSPageChange,sPage,handelSBkrd,handelSFwrd}=ItemState();
 function changeSPage(e){
     // console.log(e.target.id-1);
     onSPageChange(e.target.id-1);

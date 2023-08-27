@@ -5,17 +5,16 @@ import Checkout from './components/Checkout';
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 import SignInComponent from './components/Signin';
 import SearchResult from './components/SearchResult';
-import {ItemsProvider} from './components/ItemsProvider';
+import Context from './components/Context';
 function App() {
   return (
-    
       <Router>
-      <ItemsProvider>
+        
         <Routes>
+        
           <Route path="/" element={<Navbar />}>
             {/* Products component will be shown by default */}
             <Route index element={<Products />} />
-
             {/* Checkout component will be shown when the path is "/checkout" */}
             <Route path="checkout" element={<Checkout />} />
             <Route path="searchResult" element={<SearchResult />} />
@@ -23,7 +22,7 @@ function App() {
 
           <Route path="/signin" element={<SignInComponent />} />
         </Routes>
-        </ItemsProvider>
+        
       </Router>
   );
    

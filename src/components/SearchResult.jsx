@@ -1,10 +1,10 @@
 import React from "react";
 import SearchPages from "./SearchPages";
-import { Items } from "./ItemsProvider";
+import { ItemState } from "./Context";
 import { useContext } from "react";
 import Card from "./Card";
 function SearchResult(){
-    const{currSdata}=useContext(Items);
+    const{currSdata}=ItemState();
     console.log(currSdata+"searchResult");
     return (<>{currSdata.length>0?
        (<div className="searchProductsWrapper">

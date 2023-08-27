@@ -7,10 +7,10 @@ import {signOut} from "firebase/auth";
 import { NavLink } from "react-router-dom";
 import { useContext,useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Items } from "./ItemsProvider";
+import { ItemState } from "./Context";
 import { Outlet } from "react-router-dom";
 function Navbar() {
-   const{cart,onSearch,onRefresh}=useContext(Items);
+   const{cart,onSearch,onRefresh}=ItemState();
 //    const[categories,setCategories]=useState([]);
 //    useEffect(()=>{
 //       fetch('https://dummyjson.com/products/categories')

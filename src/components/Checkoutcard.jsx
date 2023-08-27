@@ -1,8 +1,8 @@
 import React from "react";
 import { useContext } from "react";
-import { Items } from "./ItemsProvider";
+import { ItemState } from "./Context";
 function CheckoutCard({title,image,price,id}){
-    const {onRemoveCart}=useContext(Items);
+    const {onRemoveCart}=ItemState();
     function handelRemove()
        {
            console.log(id+" removed");

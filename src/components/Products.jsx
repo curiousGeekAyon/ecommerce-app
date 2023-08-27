@@ -1,11 +1,11 @@
 import React from "react";
 import Card from "./Card";
 import { useContext } from "react";
-import { Items } from "./ItemsProvider";
+import { ItemState } from "./Context";
 import Pages from "./Pages";
 
 function Products() {
-  const { data } = useContext(Items);
+  const { data } = ItemState();
   console.log(data+"data working");
   return (
     <>

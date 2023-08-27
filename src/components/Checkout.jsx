@@ -1,9 +1,9 @@
 import React from "react";
 import Checkoutcard from "./Checkoutcard";
 import { useContext } from "react";
-import { Items } from "./ItemsProvider";
+import { ItemState } from "./Context";
 function Checkout(){
-    const{cart,cost,onProceed}=useContext(Items);
+    const{cart,cost,onProceed}=ItemState();
     function handelProceed()
         {
           if(cost>0&&localStorage.getItem("userName"))

@@ -1,8 +1,8 @@
 import React from "react";
-import { Items } from "./ItemsProvider";
+import { ItemState } from "./Context";
 import { useContext } from "react";
 function Card({title,image,price,id,flag})
-    {   const{onAddCart,onSearchAddCart}=useContext(Items);
+    {   const{onAddCart,onSearchAddCart}=ItemState();
         function handelAdd(e)
             {
                 if(flag)
