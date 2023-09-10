@@ -1,175 +1,142 @@
-import React from 'react';
+import React from "react";
 
-import { useState,useEffect,createContext,useContext} from 'react';
+import {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useReducer,
+} from "react";
+import { pageReducer, cartReducer, singleProductReducer } from "./Reducer";
+import { getNativeSelectUtilityClasses } from "@mui/material";
 
+const Items = createContext();
 
-const Items=createContext();
+function Context({ children }) {
+  const [pageState, pageDispatch] = useReducer(pageReducer, {
+    data: [],
+    currPData: [],
+    currCategory: "All products",
+    sort: [
+      { check: false, highToLow: 0 },
+      { check: false, highToLow: 0 },
+      { check: false, highToLow: 0 },
+    ],
+    totalSearchData: [],
+    currPSearchData: [],
+    categories: [],
+    serachKeyWord: "",
+    total: 0,
+    page: 0,
+    sPage: 0,
+    sTotal: 0,
+  });
 
-function Context({children}) {
-  const[data,setData] = useState([]);
-  const[searchData,setSearchData] = useState([]);
-  const[currSdata,setcurrSdata] = useState([]);
-  const[total,setTotal]=useState(0);
-  const[page,setPage] = useState(0);
-  const[sPage,setSPage] = useState(0);
-  const[cart,setCart]=useState([]);
-  const[cost,setCost]=useState(0);
-  const[searchVal,setSearchVal]=useState("");
-  const[sTotal,setSTotal]=useState(0);
+  const [cartState, cartDispatch] = useReducer(cartReducer, {
+    cart: [],
+    cost: 0,
+  });
+
+  const [singleProductState, singleProductDispatch] = useReducer(
+    singleProductReducer,
+    {
+      item: {},
+      id: "",
+    }
+  );
+  const [singleData, setSingleData] = useState({});
 
   const contextValue = {
-    data,
-    currSdata, 
-    total,
-    sTotal,
-    onPageChange,
-    onSPageChange,
-    onProceed,
-    onRefresh,
-    onSearchAddCart,
-    page,sPage,
-    handelBkrd,
-    handelFwrd,
-    handelSBkrd,
-    handelSFwrd,
-    onAddCart,cart,onRemoveCart,cost,onSearch
+    pageState,
+    pageDispatch,
+    cartState,
+    cartDispatch,
+    singleProductState,
+    singleProductDispatch,
+    singleData,
+    setSingleData,
   };
-function onRefresh()
-  {
-      setSearchVal("");
-  }
-function onAddCart(id)
-  {
-    console.log(id+"id1");
-     const element=data.filter((item,i)=>{
-      console.log(item.title+" "+id);
-       if(id === i)
-          {
-            setCost(cost+item.price);
-            return true;
-          }
-     })
-     console.log(element);
-     const arrCart=[...cart,element[0]]; 
-     console.log(arrCart);
-     if(element.length>0)
-       {
-        setCart(arrCart);
-       }
-  }
-function onSearchAddCart(id)
-       {
-        const element=currSdata.filter((item,i)=>{
-          console.log(item.title+" "+id);
-           if(id === i)
-              {
-                setCost(cost+item.price);
-                return true;
-              }
-         })
-         const arrCart=[...cart,element[0]]; 
-         console.log(arrCart);
-         if(element.length>0)
-           {
-            setCart(arrCart);
-           }
-       }
-function onRemoveCart(id) {
- 
-    const arrCart=[...cart];
-    setCost(cost-arrCart[id].price);
-    arrCart.splice(id,1);
-    setCart(arrCart);
-}
-function onSearch(search)
-      {
-          setSearchVal(search);
-      }
-useEffect(()=>{
-  let val=page*12;
-  console.log(page+" "+val);
-  fetch(`https://dummyjson.com/products?limit=12&skip=${val}`)
-  .then((response)=>{
-    return response.json();
-  })
-  .then((data)=>{
-    console.log(data);
-    setData(data.products);
-    setTotal(data.total);
-  })
-},[page])
 
-useEffect(()=>{
-  if(searchVal!="")
-     {
-  console.log("reloading");
-  fetch(`https://dummyjson.com/products/search?q=${searchVal}`)
-  .then((response)=>response.json())
-  .then((data)=>{
-     setSearchData(data.products);
-     console.log(data.products);
-     setcurrSdata(data.products.slice(sPage*12,12));
-    // setcurrSdata(searchData.slice(sPage*12,12));
-     setSTotal(data.products.length);
-  })
-}
-},[searchVal])
-
-useEffect(()=>{
-   setcurrSdata(searchData.slice(sPage*12,12))
-},[sPage])
-
-
-function onPageChange(id)
-    {
-       setPage(id);
-       console.log("calling"+ id);
+  useEffect(() => {
+    if (pageState.currCategory === "All products") {
+      fetch(`https://dummyjson.com/products?limit=100&skip=0`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          pageDispatch({
+            type: "SET_DATA",
+            payload: {
+              data: data.products,
+              total: data.total,
+              currPData: data.products.slice(0, 12),
+            },
+          });
+        });
+    } else {
+      fetch(`https://dummyjson.com/products/category/${pageState.currCategory}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          pageDispatch({
+            type: "SET_DATA",
+            payload: {
+              data: data.products,
+              total: data.total,
+              currPData: data.products.slice(0, 12),
+            },
+          });
+        });
     }
-function onSPageChange(id)
-{
-    setSPage(id);
-    console.log("calling"+ id);
-}
-function onProceed()
-     { 
-           setCart([]);
-            setCost(0);
-     }
-function handelFwrd()
-      {
-        if(page<9)
-          {
-            setPage(page+1);
-          }
-        
-      }
-  function handelSFwrd()
-  {
-    if(sPage<9)
-      {
-        setSPage(sPage+1);
-      }
-    
-  }
-function handelBkrd(id)
-      {
-        if(page>0)
-          {
-            setPage(page-1);
-          }
-      }
-function handelSBkrd(id)
-{
-  if(sPage>0)
-    {
-      setSPage(sPage-1);
+    console.log(pageState.categories.length);
+    if (pageState.categories.length === 0) {
+      console.log("running");
+      fetch(`https://dummyjson.com/products/categories`)
+        .then((response) => {
+          console.log(response);
+          return response.json();
+        })
+        .then((data) => {
+          const updatedCategories = ["All products", ...data];
+          pageDispatch({
+            type: "UPDATE_CATEGORIES",
+            payload: updatedCategories,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-}
-return <Items.Provider value={contextValue}>{children}</Items.Provider>  
+  }, [pageState.currCategory]);
+
+  useEffect(() => {
+    console.log(pageState.searchKeyWord);
+    if (pageState.searchKeyWord !== null) {
+      console.log("reloading");
+      fetch(
+        `https://dummyjson.com/products/search?q=${pageState.searchKeyWord}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          pageDispatch({
+            type: "SET_SEARCH_PAGE",
+            payload: {
+              totalSearchData: data.products,
+              currPSearchData: data.products.slice(pageState.sPage * 12, 12),
+              sTotal: data.total,
+            },
+          });
+        });
+    }
+  }, [pageState.searchKeyWord]);
+
+  return <Items.Provider value={contextValue}>{children}</Items.Provider>;
 }
 
-export const ItemState = () => {
+export const useItemState = () => {
+  // console.log(Items);
   return useContext(Items);
 };
-export default Context;
 
+export default Context;

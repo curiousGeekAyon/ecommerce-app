@@ -5,24 +5,16 @@ import SearchIcon from '@mui/icons-material/Search';
 import {auth} from './firebaseConfig';
 import {signOut} from "firebase/auth";
 import { NavLink } from "react-router-dom";
-import { useContext,useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ItemState } from "./Context";
+import { useItemState } from "./Context";
 import { Outlet } from "react-router-dom";
 function Navbar() {
-   const{cart,onSearch,onRefresh}=ItemState();
-//    const[categories,setCategories]=useState([]);
-//    useEffect(()=>{
-//       fetch('https://dummyjson.com/products/categories')
-//       .then((response)=>response.json())
-//       .then((data)=>{
-//         console.log(data);
-//         const helper=["All catagories",...data];
-//         setCategories(helper);
-//       })
-// },[])
-const[searchValue,setSearchValue]=useState(""); 
+   const{cartState,pageDispatch,pageState}=useItemState();
+   const [selectedValue, setSelectedValue] = useState("All products");
    const navigate=useNavigate();
+   const[sValue,setSValue]=useState("");
+   console.log(pageState.categories)
    let user=localStorage.getItem("userName");
    function handelSignOut(){
       console.log("clicking");
@@ -34,42 +26,72 @@ const[searchValue,setSearchValue]=useState("");
             alert(error);
       });
   }
+  
   function handelRefresh()
      {
-         setSearchValue("");
-         onRefresh();
+         pageDispatch({
+             type:"REFRESH",
+             payload:false
+         })
+         setSelectedValue("All products");
+         setSValue("")
      }
-  function handelChange(e)
-      {
-         setSearchValue(e.target.value);
-      }
-  function handelClick()
+  
+  function handelClick(e)
          {
-            console.log("handel search");
-            if(searchValue!=="")
+            console.log(sValue);
+            if(sValue!=="")
                {
-                   onSearch(searchValue);
+                 
+                  const val=sValue;
+                  pageDispatch({
+                         type:"SEARCH",
+                         payload:val
+                   });
                    navigate("searchResult");
                }
             else{
                   navigate("");
+                  setSValue("")
             }
          }
+    function handelChange(e)
+        {   
+            console.log(e.target.value)
+            setSValue(e.target.value);
+
+        }
     return (
       <>
         <div className="navbarWrapper">
         <NavLink to="/" className="nav-link" onClick={handelRefresh}>
-           <span className="icon">
+           <span className="icon" onClick={()=>{
+              pageDispatch({
+                     type:"FILTER",
+                     payload:"All products"
+              })
+           }}>
            <StorefrontRoundedIcon style={{ color: 'rgb(255, 216, 20)', fontSize: '25px' }} />
            <span>eShop</span>
            </span>
            </NavLink>
            <div className="input-container">
-           {/* <select onChange="">
-           {categories.map((item, i) => (
-             <option key={i} value={item.value}>{item}</option>
-           ))}</select> */}
-              <input type="text" placeholder="Search product here" onChange={handelChange} value={searchValue}/>
+           <select value={selectedValue}
+  onChange={(e) => {
+    pageDispatch({
+      type: "FILTER",
+      payload: e.target.value, // Use e.target.value to get the selected value
+         });
+      setSelectedValue(e.target.value);
+        }}>
+  {pageState.categories.map((item, i) => (
+    <option key={i} value={item}>
+      {item}
+    </option>
+  ))}
+</select>
+
+              <input type="text" placeholder="Search product" value={sValue} onChange={handelChange}/>
               <SearchIcon onClick={handelClick} style={{cursor:"pointer"}}/>
            </div>
            <span className="right">
@@ -79,18 +101,27 @@ const[searchValue,setSearchValue]=useState("");
            </span>
            <NavLink to="checkout" className="nav-link2" >
            <ShoppingCartCheckoutIcon fontSize="medium"/>
-           <span>{cart.length}</span>
+           <span>{cartState.cart.length}</span>
            <span id="CWord">Cart</span>
            </NavLink>
            </span>
         </div>
         <div className="StandbyWrapper">
-        {/* <select onChange="">
-        {categories.map((item, i) => (
-         <option key={i} value={item.value}>{item}</option>
-         ))}
-      </select> */} 
-        <div className="Standby"> <input type="text" placeholder="Search product here" onChange={handelChange}/>
+        <select value={selectedValue}
+  onChange={(e) => {
+    pageDispatch({
+      type: "FILTER",
+      payload: e.target.value, // Use e.target.value to get the selected value
+         });
+      setSelectedValue(e.target.value);
+        }}>
+  {pageState.categories.map((item, i) => (
+    <option key={i} value={item}>
+      {item}
+    </option>
+  ))}
+</select>
+        <div className="Standby"> <input type="text" placeholder="Search product" value={sValue} onChange={handelChange}/>
               <SearchIcon onClick={handelClick} style={{cursor:"pointer"}}/>
        </div>
        </div>

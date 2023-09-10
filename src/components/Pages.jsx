@@ -1,32 +1,36 @@
 import React from "react";
-import { useContext, } from "react";
-import { ItemState } from "./Context";
+import { useItemState } from "./Context";
 import ArrowBackIosNewSharpIcon from '@mui/icons-material/ArrowBackIosNewSharp';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 function Pages(){
-const {total,onPageChange,page,handelBkrd,handelFwrd}=ItemState();
+const {pageState,pageDispatch,singleProductState}=useItemState();
+console.log(singleProductState)
 function changePage(e){
-    // console.log(e.target.id-1);
-    onPageChange(e.target.id-1);
+    pageDispatch({
+           type:"CHANGE_PAGE",
+           id:e.target.id
+    })
 }
 function moveFwrd(e)
         {
-              console.log("hi")
-                handelFwrd();
+              pageDispatch({
+                             type:"MOVE_FORWARD"
+                           })
         }
 function moveBkwrd(e)
 {
-    console.log("hi");
-    handelBkrd();
+    pageDispatch({
+      type:"MOVE_BACKWARD"
+})
 }
 
-let val=Math.ceil(total/12);
-console.log(total);
+let val=Math.ceil(pageState.total/12);
+console.log(pageState.total);
 const pages=new Array(val).fill(0);
 console.log(pages);
 return(
     <div className="page-wrapper">
-    {page+1>1?<span onClick={moveBkwrd}><ArrowBackIosNewSharpIcon fontSize="large" /></span>:null}
+    {pageState.page+1>1?<span onClick={moveBkwrd}><ArrowBackIosNewSharpIcon fontSize="large" /></span>:null}
     {pages.map((page, index) => {
       return (
         <span className="pages" key={index + 1} onClick={changePage} id={index+1}>
@@ -34,7 +38,7 @@ return(
         </span>
       );
     })}
-    {page+1<val?<ArrowForwardIosSharpIcon fontSize="large" onClick={moveFwrd}/>:null}
+    {pageState.page+1<val?<ArrowForwardIosSharpIcon fontSize="large" onClick={moveFwrd}/>:null}
   </div>
      )
 }

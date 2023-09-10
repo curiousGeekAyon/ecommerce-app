@@ -1,12 +1,15 @@
 import React from "react";
-import { useContext } from "react";
-import { ItemState } from "./Context";
+import { useItemState } from "./Context";
 function CheckoutCard({title,image,price,id}){
-    const {onRemoveCart}=ItemState();
+    const {cartDispatch}=useItemState();
     function handelRemove()
        {
            console.log(id+" removed");
-           console.log(onRemoveCart(id));
+           cartDispatch({
+               type:"REMOVE_FROM_CART",
+               id:id,
+               price:price
+           })
        }
      return (
                 <div className="CheckoutcardWrapper">

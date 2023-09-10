@@ -64,6 +64,17 @@
   display:block;
   margin-bottom: 15px;
 }
+.button {
+  width: 150px;
+  height: 20px;
+  background-color: #fff; /* Blue color for the button */
+  color:#007bff;  /* White text color */
+  text-align: center; /* Center-align text horizontally */
+  line-height: 20px; /* Center-align text vertically */
+  border: none; /* Remove button border */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  display:block; 
+}
 /*****************************************navbar styling*********************************/
 .navbarWrapper{
      padding:5px 10px;
@@ -256,6 +267,31 @@ input[type="text"] {
 .gradient-bg {
   background-image: linear-gradient(to top, #d1d5db, #6b7280);
 }
+.sortSection{
+  position:absolute;
+  top:30vh;
+  right:5%;
+  display:flex;
+  flex-direction: column;
+  padding: 10px; /* Add padding for spacing */
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 5px; /* Add rounded corners */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Add a shadow */
+  background-color: #f9f9f9; /* Set background color */
+}
+.sort{
+         
+         display:flex;
+         cursor: pointer;
+
+}
+.dropdown select{
+     width:100px
+}
+.sort span{
+  text-align: center;
+  padding-top: 4px;
+}
 .products{
   /* border:5px solid rgb(0, 128, 0); */
   display:flex;
@@ -269,6 +305,7 @@ input[type="text"] {
   display:flex;
   flex-direction: column;
   align-items: center;
+  position:relative;
 }
 .prImage{
   width:100%;
@@ -344,7 +381,97 @@ input[type="text"] {
   border-radius: 50%;
   animation:spin 2s linear infinite; /* Using the spin animation with 2 seconds duration, linear timing function, and infinite repetition */
 }
-  
+ /* #############################################################single product styling#############################################################################################  */
+ .single-product {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  margin: 30px auto;
+  padding: 10px;
+  width: 400px; /* Increase the width to make the image section larger */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Product Image Container */
+.product-image-container {
+  position: relative;
+  flex: 1 250px; /* Make the image container take up more space */
+  height:500px
+}
+
+/* Product Image */
+.product-image-large {
+  max-width: 100%;
+  max-height: 100%; /* Adjust the height to maintain aspect ratio */
+  width: auto; /* Allow the image to adjust its width */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Next Image Button */
+.next-image-button {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.next-image-button:focus {
+  outline: none;
+}
+
+.next-image-button svg {
+  font-size: 24px;
+  color: #007bff;
+}
+
+/* Product Details Section */
+.product-details {
+  flex: 2;
+  padding-left: 10px;
+}
+
+/* Product Detail Text Styles */
+.product-title {
+  font-size: 18px;
+  margin: 0;
+}
+
+.product-description {
+  margin: 5px 0;
+}
+
+.product-price,
+.product-discount,
+.product-rating,
+.product-stock,
+.product-brand,
+.product-category {
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .single-product {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width:90%;
+  }
+
+  .product-image {
+    margin-bottom: 10px;
+  }
+}
+
+
 
 /* #########################################pages style################################ */
 .page-wrapper{
@@ -533,8 +660,15 @@ input[type="text"] {
          .input-container{
           display:none;
          }
+        .sortSection {
+          position: absolute;
+          top: 21vh;
+          right: 4%;
+          display: flex;
+          flex-direction: column;
+      }
        }
-@media (max-width:580px)
+@media (max-width:586px)
        {
         .page-wrapper{
           /* border:2px solid red; */
@@ -547,6 +681,17 @@ input[type="text"] {
              height:25px;
              font-size: 13px;
         }
+        .sortSection {
+          position: absolute;
+          top: 11.6vh;
+          right: 4%;
+          display: flex;
+          flex-direction: column;
+          font-size: 10px;
+      }
+      .sort{
+         font-size: 11px;
+      }
        }
 @media (max-width:390px)
        {
@@ -564,4 +709,15 @@ input[type="text"] {
                  height:25px;
                  font-size: 13px;
             }
+            .sortSection {
+              position: absolute;
+              top: 9.3vh;
+              right: 4%;
+              display: flex;
+              flex-direction: column;
+              font-size: 10px;
+          }
+          .sort{
+             font-size: 10px;
+          }
        }

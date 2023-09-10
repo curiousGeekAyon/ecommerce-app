@@ -5,7 +5,7 @@ import Checkout from './components/Checkout';
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 import SignInComponent from './components/Signin';
 import SearchResult from './components/SearchResult';
-import Context from './components/Context';
+import SingleProduct from './components/SingleProduct';
 function App() {
   return (
       <Router>
@@ -18,6 +18,8 @@ function App() {
             {/* Checkout component will be shown when the path is "/checkout" */}
             <Route path="checkout" element={<Checkout />} />
             <Route path="searchResult" element={<SearchResult />} />
+            <Route path="singleProduct/:id" element={<SingleProduct />} />
+            
           </Route>
 
           <Route path="/signin" element={<SignInComponent />} />

@@ -1,15 +1,17 @@
 import React from "react";
 import Checkoutcard from "./Checkoutcard";
-import { useContext } from "react";
-import { ItemState } from "./Context";
+import { useItemState } from "./Context";
 function Checkout(){
-    const{cart,cost,onProceed}=ItemState();
+    const{cartState,cartDispatch}=useItemState();
+    console.log(cartState.cart);
     function handelProceed()
         {
-          if(cost>0&&localStorage.getItem("userName"))
+          if(cartState.cost>0&&localStorage.getItem("userName"))
              {
-                alert(`Thank you for shopping \n your grandtotal is ${cost}$`);
-                onProceed();
+                alert(`Thank you for shopping \n your grandtotal is ${cartState.cost}$`);
+                cartDispatch({
+                     type:"PROCEED_TO_CHECKOUT"
+                })
              } 
           else{
               alert("Please Sign in to proceed");
@@ -22,7 +24,7 @@ function Checkout(){
      <div className="imgContainer">
         <img src="https://m.media-amazon.com/images/I/21O7ipfLhiL.jpg"alt="banner image"/></div>
         <div className="orderSummary">
-           <p className="summary">{`Subtotal (n items): ${cost}$`}</p>
+           <p className="summary">{`Subtotal (n items): ${cartState.cost}$`}</p>
            <div>
            <input type="checkbox"/>
            <span className="text">This order contains a gift</span>
@@ -31,14 +33,14 @@ function Checkout(){
          </div>
      </div>
      <div className="checkoutInfo">
-        <h2 className={cart.length===0?`center`:``}>{cart.length>0?`Your shopping basket`:`Your basket is empty`}</h2>
+        <h2 className={cartState.cart.length===0?`center`:``}>{cartState.cart.length>0?`Your shopping basket`:`Your basket is empty`}</h2>
          <div className="checkoutsList">
            { 
-             cart.length>0?cart.map((item,i)=>{
-                console.log(item);
-                let{images,price,title}=item;
-               return <Checkoutcard title={title} image={images[0]} price={price} key={i} id={i} />
-            }):null
+             cartState.cart.length>0?cartState.cart.map((item,i)=>{
+               console.log(item);
+                let{image,price,title}=item;
+               return <Checkoutcard title={title} image={image} price={price} key={i} id={i} /> 
+           }):null 
            }
          </div>
      </div>
