@@ -7,13 +7,26 @@ import { useState, useEffect } from "react";
 function Products() {
   const { pageState, pageDispatch } = useItemState();
   const [show, setShow] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(0);
   const [allSelect, setAllSelect] = useState([0, 0, 0]);
   useEffect(() => {
     console.log("calling");
     sortProducts();
   }, [pageState.sort]);
+  useEffect(()=>{
+  setAllSelect([0,0,0]);
+  setShow(false);
+  pageDispatch({
+      type:"SORT",
+      payload:[
+        { check: false, highToLow: 0 },
+        { check: false, highToLow: 0 },
+        { check: false, highToLow: 0 },
+      ]
+  })
+  },[pageState.currCategory])
   function reset() {
+    if (pageState.currCategory === "All products")
+      {
     fetch(`https://dummyjson.com/products?limit=100&skip=0`)
       .then((response) => {
         return response.json();
@@ -28,6 +41,23 @@ function Products() {
           },
         });
       });
+    }
+   else{
+    fetch(`https://dummyjson.com/products/category/${pageState.currCategory}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      pageDispatch({
+        type: "SET_DATA",
+        payload: {
+          data: data.products,
+          total: data.total,
+          currPData: data.products.slice(0, 12),
+        },
+      });
+    });
+   }
   }
   const handleCheckboxChange = (i) => {
     allSelect[i] = 0;
