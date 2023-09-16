@@ -216,7 +216,7 @@ input[type="text"] {
 .cardWrapper {
   display: flex;
   flex-direction: column;
-  flex:1 1 220px;
+  flex:1 1 250px;
   width: 15vw;
   padding: 10px 15px;
   /* border: 2px solid burlywood; */
@@ -360,27 +360,113 @@ input[type="text"] {
   }
 }
 
-/* Styling for the loading spinner */
-.loadingWrapper{
-    font-size: 24px;
-    font-weight: bold;
-    width: 100vw;
-    height: 100vh;
-    color: #ed9b4e;
-    animation: ellipsis 1s steps(5) infinite; /* Using the ellipsis animation with 1-second duration, 5 steps, and infinite repetition */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* border: 2px solid green; */
+/* The loading spinner container */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust the height as needed */
+  background-color: #f5f5f5; /* Background color for the container */
+  overflow: hidden; /* Hide the overflow to prevent shimmering outside the container */
 }
-.loading {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #ccc;
-  border-top: 4px solid #3498db;
-  border-radius: 50%;
-  animation:spin 2s linear infinite; /* Using the spin animation with 2 seconds duration, linear timing function, and infinite repetition */
+
+/* The loading spinner wave */
+.loading-spinner {
+  width: 200px;
+  height: 50px;
+  position: relative;
+  overflow: hidden;
 }
+
+/* The individual wave bars */
+.loading-spinner::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #ff4e50, /* Bright red */
+    #fc67fa, /* Bright purple */
+    #00a8ff, /* Bright blue */
+    #f7b733 /* Bright yellow */
+  );
+  transform: translateX(-100%);
+  animation: wave 1.5s linear infinite; /* Wave animation */
+}
+
+/* Keyframes for the wave animation */
+@keyframes wave {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+
+/* #########################################loading animation for singleProductPage ######################################### */
+/* The loading spinner container */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust the height as needed */
+  perspective: 1000px; /* Adds a 3D perspective */
+  background-color: #f5f5f5; /* Background color for the container */
+}
+
+/* The loading spinner cube */
+.loading-spinner {
+  width: 80px;
+  height: 80px;
+  transform-style: preserve-3d; /* Preserve 3D transformations */
+  animation: spin 2s infinite linear; /* Rotation animation */
+}
+
+/* Faces of the cube */
+.loading-spinner div {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: #3498db; /* Color of the cube faces */
+  opacity: 0.8; /* Adjust opacity as needed */
+}
+
+/* Position the faces */
+.loading-spinner div:nth-child(1) {
+  transform: rotateX(0deg) translateZ(40px);
+}
+
+.loading-spinner div:nth-child(2) {
+  transform: rotateX(180deg) translateZ(40px);
+}
+
+.loading-spinner div:nth-child(3) {
+  transform: rotateY(90deg) translateZ(40px);
+}
+
+.loading-spinner div:nth-child(4) {
+  transform: rotateY(-90deg) translateZ(40px);
+}
+
+.loading-spinner div:nth-child(5) {
+  transform: rotateY(180deg) translateZ(40px);
+}
+
+.loading-spinner div:nth-child(6) {
+  transform: rotateY(0deg) translateZ(40px);
+}
+
+/* Keyframes for the spinning animation */
+@keyframes spin {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+
+
  /* #############################################################single product styling#############################################################################################  */
  .single-product {
   display: flex;
@@ -512,9 +598,15 @@ input[type="text"] {
 }
 
 .pages:active {
-  transform: translateY(2px);
-  box-shadow: none;
+  background-color: red;
 }
+.pointer-on-hover:hover {
+  cursor: pointer;
+}
+.pointer-on-hover {
+  border:2px solid black
+}
+
 
 
 /* *********************************checkoutStyling***************************************************** */
@@ -608,6 +700,7 @@ input[type="text"] {
 .searchProductsWrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
   flex-wrap: wrap;
   width: 100%;
 }

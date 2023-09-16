@@ -14,10 +14,8 @@ function Navbar() {
    const [selectedValue, setSelectedValue] = useState("All products");
    const navigate=useNavigate();
    const[sValue,setSValue]=useState("");
-   console.log(pageState.categories)
    let user=localStorage.getItem("userName");
    function handelSignOut(){
-      console.log("clicking");
       signOut(auth).then(() => {
         localStorage.removeItem("userName");
         alert("Successfully signed out");
@@ -39,7 +37,6 @@ function Navbar() {
   
   function handelClick(e)
          {
-            console.log(sValue);
             if(sValue!=="")
                {
                  
@@ -48,6 +45,7 @@ function Navbar() {
                          type:"SEARCH",
                          payload:val
                    });
+                   setSelectedValue("All products");
                    navigate("searchResult");
                }
             else{
@@ -57,7 +55,6 @@ function Navbar() {
          }
     function handelChange(e)
         {   
-            console.log(e.target.value)
             setSValue(e.target.value);
 
         }
@@ -101,7 +98,7 @@ function Navbar() {
            </span>
            <NavLink to="checkout" className="nav-link2" >
            <ShoppingCartCheckoutIcon fontSize="medium"/>
-           <span>{cartState.cart.length}</span>
+           <span>{cartState.cart.size}</span>
            <span id="CWord">Cart</span>
            </NavLink>
            </span>

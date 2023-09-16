@@ -7,7 +7,6 @@ function SearchResult(){
     console.log(pageState.currPSearchData);
     return (<>{pageState.currPSearchData.length>0?
        (<div className="searchProductsWrapper">
-            <div className="products">
               {pageState.currPSearchData.map((item, i) => {
                 return (
                   <Card
@@ -19,8 +18,7 @@ function SearchResult(){
                 );
               })}
             </div>
-           {/* {pageState.totalSearchData.length>12?<SearchPages/>:null} */}
-          </div>):<div className="noProducts">Sorry no products found </div>}
+          ):<div className="noProducts">Sorry no products found </div>}
     </>)
 }
 

@@ -6,6 +6,7 @@ import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 import SignInComponent from './components/Signin';
 import SearchResult from './components/SearchResult';
 import SingleProduct from './components/SingleProduct';
+import Notfound from './components/Notfound';
 function App() {
   return (
       <Router>
@@ -19,7 +20,8 @@ function App() {
             <Route path="checkout" element={<Checkout />} />
             <Route path="searchResult" element={<SearchResult />} />
             <Route path="singleProduct/:id" element={<SingleProduct />} />
-            
+            <Route exact path="searchResult/singleProduct/:id" element={<SingleProduct />} />
+            <Route path="*" element={<Notfound />} />
           </Route>
 
           <Route path="/signin" element={<SignInComponent />} />

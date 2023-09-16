@@ -9,8 +9,6 @@ const SignInComponent = () => {
   const navigate=useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
 
     // Reset the form after submission (optional)
     setEmail('');
@@ -23,7 +21,6 @@ const SignInComponent = () => {
     // Signed in
     localStorage.setItem('userName',email.substring(0,email.indexOf('@')));
     navigate("/");
-    // console.log(user);
   })
   .catch((error) => {
     alert(error);

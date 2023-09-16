@@ -1,7 +1,6 @@
 export const pageReducer = (state, action) => {
   switch (action.type) {
     case "SET_DATA":
-      console.log(action.payload);
       return {
         ...state,
         data: action.payload.data,
@@ -9,12 +8,10 @@ export const pageReducer = (state, action) => {
         currPData: action.payload.currPData,
       };
     case "MOVE_BACKWARD":
-      console.log(action.type);
       const pdata = state.data.slice(
-        (state.page - 1 )* 12 + 1,
-        (state.page - 1 )* 12 + 13
+        (state.page - 1) * 12 + 1,
+        (state.page - 1) * 12 + 13
       );
-      console.log((state.page - 1 )* 12 + 1);
       if (state.page > 0) {
         return {
           ...state,
@@ -25,14 +22,12 @@ export const pageReducer = (state, action) => {
       break; // Added break statement to exit the case
 
     case "MOVE_FORWARD":
-      console.log(action.type);
       if (state.page < state.total / 12) {
         const pdata = state.data.slice(
-            (state.page + 1 )* 12 + 1,
-            (state.page + 1 )* 12 + 13
+          (state.page + 1) * 12 + 1,
+          (state.page + 1) * 12 + 13
         );
-        console.log(state.pdata);
-        console.log(state.page);
+       
         return {
           ...state,
           page: state.page + 1,
@@ -43,30 +38,29 @@ export const pageReducer = (state, action) => {
 
     case "CHANGE_PAGE":
       const data = state.data.slice(
-        (action.id - 1 )* 12 + 1,
-        (action.id - 1 )* 12 + 13
+        (action.id - 1) * 12 + 1,
+        (action.id - 1) * 12 + 13
       );
-      console.log(data);
+      
       return {
         ...state,
         page: action.id - 1,
         currPData: data,
       };
-    case "UPDATE_CATEGORIES":
-         {
-           return {
-               ...state,
-               categories:action.payload
-           }
-         }
+    case "UPDATE_CATEGORIES": {
+      return {
+        ...state,
+        categories: action.payload,
+      };
+    }
     case "FILTER":
-      console.log(action.type + " " + action.payload);
+   
       return {
         ...state,
         currCategory: action.payload,
       };
     case "SEARCH":
-      console.log(action.payload);
+     
       return {
         ...state,
         searchKeyWord: action.payload,
@@ -77,7 +71,6 @@ export const pageReducer = (state, action) => {
         searchKeyWord: null,
       };
     case "SET_SEARCH_PAGE":
-      console.log(action.payload);
       return {
         ...state,
         totalSearchData: [...action.payload.totalSearchData],
@@ -85,33 +78,32 @@ export const pageReducer = (state, action) => {
         sTotal: action.payload.sTotal,
       };
     case "ON":
-      console.log("callled");
-      const newSort =action.payload.map((item,i)=>{if(i==action.index)
-                                                        {
-                                                          return {
-                                                                ...item,
-                                                                check:true
-                                                          }
-                                                        }
-                                                      else{
-                                                        return {
-                                                          ...item,
-                                                          check:false,
-                                                          highToLow:0
-                                                    }    
-                                                      }})
+    
+      const newSort = action.payload.map((item, i) => {
+        if (i == action.index) {
+          return {
+            ...item,
+            check: true,
+          };
+        } else {
+          return {
+            ...item,
+            check: false,
+            highToLow: 0,
+          };
+        }
+      });
 
-      return   {
-                  ...state,
-                  sort:newSort
-                }
-      
+      return {
+        ...state,
+        sort: newSort,
+      };
+
     case "SORT":
-      console.log("callign sort")
-       return{
-          ...state,
-          sort:action.payload
-       }
+      return {
+        ...state,
+        sort: action.payload,
+      };
     default:
       return state;
   }
@@ -120,27 +112,50 @@ export const pageReducer = (state, action) => {
 export const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
+      const item = action.payload;
+      const updatedCart = new Map(state.cart); // Create a new Map from the existing state.cart
+
+      if (updatedCart.has(item.id)) {
+        // If the item is already in the cart, perform some action (e.g., increase quantity)
+        // For this example, we're incrementing the quantity by 1 when the item is already in the cart
+        const existingItem = { ...updatedCart.get(item.id) };
+        existingItem["quantity"]++;
+        updatedCart.set(item.id, existingItem);
+      } else {
+        // If the item is not in the cart, add it with a quantity of 1
+        updatedCart.set(item.id, { ...item, quantity: 1 });
+      }
+
       return {
         ...state,
-        cart: [...state.cart, action.payload],
-        cost: state.cost + action.payload.price,
+        cart: updatedCart, // Update the cart property with the updated Map
+        cost: state.cost + item.price, // Update the cost by adding the item's price
       };
-    case "REMOVE_FROM_CART":
-      return {
-        ...state,
-        cart: state.cart.filter((item, i) => {
-          if (i !== action.id) {
-            return true;
+
+      case "REMOVE_FROM_CART":
+        const updatedcart = new Map(state.cart);
+        const existingItem = updatedcart.get(action.id);
+        if (updatedcart.has(action.id)) {
+        if (existingItem) {
+          existingItem.quantity--;
+          if (existingItem.quantity > 0) {
+            updatedcart.set(action.id, existingItem);
           } else {
-            return false;
+            updatedcart.delete(action.id);
           }
-        }),
-        cost: state.cost - action.id,
-      };
+        }
+      }
+        return {
+          ...state,
+          cart: updatedcart,
+          cost: state.cost - action.price,
+        };
+      
+      
     case "PROCEED_TO_CHECKOUT":
       return {
         ...state,
-        cart: [],
+        cart: new Map(),
         cost: 0,
       };
     default:
@@ -151,7 +166,6 @@ export const cartReducer = (state, action) => {
 export const singleProductReducer = (state, action) => {
   switch (action.type) {
     case "SET_PRODUCT":
-      console.log(state.item);
       return {
         ...state,
         item: action.payload,

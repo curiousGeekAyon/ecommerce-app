@@ -9,7 +9,6 @@ function Products() {
   const [show, setShow] = useState(false);
   const [allSelect, setAllSelect] = useState([0, 0, 0]);
   useEffect(() => {
-    console.log("calling");
     sortProducts();
   }, [pageState.sort]);
   useEffect(()=>{
@@ -159,13 +158,11 @@ function Products() {
                           setAllSelect((prev) => {
                             const arr = [...prev];
                             arr[0] = e.target.value;
-                            console.log(arr[0]);
                             return arr;
                           });
                           const newSort = [...pageState.sort];
                           const option = newSort[0];
                           option["highToLow"] = parseInt(e.target.value);
-                          console.log(newSort[0]);
                           pageDispatch({
                             type: "SORT",
                             payload: newSort,
@@ -240,7 +237,7 @@ function Products() {
                       checked={pageState.sort[2].check}
                       onChange={() => handleCheckboxChange(2)}
                     />
-                    By Storage
+                    by Storage
                   </label>
                   {pageState.sort[2].check ? (
                     <div className="dropdown">
@@ -289,9 +286,9 @@ function Products() {
           </div>
         </div>
       ) : (
-        <div className="loadingWrapper">
-          <p className="loading">Loading</p>
-        </div>
+        <div class="loading-container">
+  <div class="loading-spinner"></div>
+</div>
       )}
     </>
   );

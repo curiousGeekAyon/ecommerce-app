@@ -7,23 +7,19 @@ const SingleProduct = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const{id}=useParams();
   const[singlePd,setSinglePd]=useState(null)
-  console.log(id);
-  const { pageState,cartDispatch } = useItemState();
+  const { cartDispatch } = useItemState();
   useEffect(()=>{
-    console.log(id);
     fetch(`https://dummyjson.com/products/${id}`)
     .then((response) => {
       return response.json();
     })
     .then((data)=>{
-      console.log(data);
            setSinglePd(data);
     }).catch((err)=>{console.log(err)});
   },[id])
   
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % singlePd.images.length);
-    console.log("calling next");
   };
   
   function handelAdd()
@@ -37,7 +33,6 @@ const SingleProduct = () => {
                               price:singlePd.price,
                            }
           })
-          console.log(pageState);
   }
 
   return (singlePd?
@@ -63,7 +58,16 @@ const SingleProduct = () => {
         <p className="product-category">Category: {singlePd.category}</p>
         <button className="btn" onClick={handelAdd}>Add to cart</button>
       </div>
-    </div>:<p>loading</p>
+    </div>:<div class="loading-container">
+  <div class="loading-spinner">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
   );
 };
 

@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   useState,
   useEffect,
@@ -33,7 +32,7 @@ function Context({ children }) {
   });
 
   const [cartState, cartDispatch] = useReducer(cartReducer, {
-    cart: [],
+    cart: new Map(),
     cost: 0,
   });
 
@@ -89,12 +88,9 @@ function Context({ children }) {
           });
         });
     }
-    console.log(pageState.categories.length);
     if (pageState.categories.length === 0) {
-      console.log("running");
       fetch(`https://dummyjson.com/products/categories`)
         .then((response) => {
-          console.log(response);
           return response.json();
         })
         .then((data) => {
@@ -105,15 +101,12 @@ function Context({ children }) {
           });
         })
         .catch((error) => {
-          console.log(error);
         });
     }
   }, [pageState.currCategory]);
 
   useEffect(() => {
-    console.log(pageState.searchKeyWord);
     if (pageState.searchKeyWord !== null) {
-      console.log("reloading");
       fetch(
         `https://dummyjson.com/products/search?q=${pageState.searchKeyWord}`
       )
@@ -135,7 +128,6 @@ function Context({ children }) {
 }
 
 export const useItemState = () => {
-  // console.log(Items);
   return useContext(Items);
 };
 

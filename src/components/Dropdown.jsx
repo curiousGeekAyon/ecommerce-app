@@ -5,7 +5,6 @@ export default function Dropdown() {
          fetch('https://dummyjson.com/products/categories')
          .then((response)=>response.json())
          .then((data)=>{
-           console.log(data);
            setCategories(data);
          })
   },[])

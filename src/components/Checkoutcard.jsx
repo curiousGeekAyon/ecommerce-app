@@ -1,10 +1,9 @@
 import React from "react";
 import { useItemState } from "./Context";
-function CheckoutCard({title,image,price,id}){
+function CheckoutCard({title,image,price,id,quantity}){
     const {cartDispatch}=useItemState();
     function handelRemove()
        {
-           console.log(id+" removed");
            cartDispatch({
                type:"REMOVE_FROM_CART",
                id:id,
@@ -19,6 +18,7 @@ function CheckoutCard({title,image,price,id}){
                     <div className="text-container">
                         <p className="description">{title}</p>
                         <p className="price">{`Price:${price}$`}</p>
+                        <p className="quantity">{`Quantity:${quantity}`}</p>
                         <button variant="outlined" className="btn primaryBtn" onClick={handelRemove}>Remove from cart</button>
                     </div>
                 </div>
